@@ -1,0 +1,61 @@
+<?php
+
+/*
+ * 最大长度验证类
+ */
+require_once dirname(dirname(__FILE__)) . '/validatorHander.php';
+
+class validatorMaxlength {
+
+    private $name;
+    private $attribute;
+    private $param;
+    private $message;
+
+    public function __construct($name, $attribute, $param, $message) {
+        $this->name = $name;
+        $this->attribute = $attribute;
+        $this->param = $param;
+        $this->message = $message;
+    }
+
+    public function run() {
+        $option = array(
+            'attribute' => $this->attribute,
+            'msg' => $this->message,
+        );
+
+        $maxlength = $this->param['maxlength'];
+        $result = $this->validate($this->name, $maxlength, $option);
+        if ($result) {
+            echo $result;
+            exit;
+        }
+    }
+
+    /**
+     * 验证最大长度
+     * @param type $name
+     * @param type $maxlength
+     * @param type $option
+     * @return string
+     */
+    public function validate($name, $maxlength, $option = array()) {
+        //获取初始化数据
+        list($attribute, $msg) = validatorHandler::getOption($name, $option);
+
+        //进行数据校验
+        if (strlen($_POST[$name]) > $maxlength) {
+            if ($msg) {
+                //进行字符串替换
+                $msg = str_replace(':attribute', $attribute, $msg);
+                $errorMsg = str_replace(':maxlength', $maxlength, $msg);
+            } else {
+                //直接拼接
+                $errorMsg = $attribute . '最大长度不能超过' . $maxlength;
+            }
+            return $errorMsg;
+        }
+    }
+
+}
