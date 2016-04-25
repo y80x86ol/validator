@@ -1,0 +1,20 @@
+{
+    "name": "y80x86ol/validator",
+    "description": "The PHP Validator.",
+    "keywords": [
+        "validator"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "ken",
+            "email": "y80x86ol@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "validator\\": "/"
+        }
+    },
+    "minimum-stability": "dev"
+}
