@@ -14,9 +14,16 @@ class validator {
 
     /**
      * 进行验证
-     * @param type $input
-     * @param type $rules
-     * @param type $messages
+     * @param array $input
+     * @param array $rules
+     * @param array $messages
+     */
+    /**
+     * 进行验证
+     * @param array $input
+     * @param array $rules
+     * @param array $labels
+     * @param array $messages
      */
     public static function make($input, $rules, $labels = array(), $messages = array()) {
         //1、解析rules

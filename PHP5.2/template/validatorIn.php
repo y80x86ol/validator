@@ -1,12 +1,12 @@
 <?php
 
 /*
- * 整形验证类
+ * 最大长度验证类
  */
 require_once dirname(dirname(__FILE__)) . '/validatorHandle.php';
 require_once dirname(__FILE__) . '/validatorInterface.php';
 
-class validatorInt implements validatorInterface {
+class validatorIn implements validatorInterface {
 
     /**
      * 执行验证
@@ -22,8 +22,7 @@ class validatorInt implements validatorInterface {
         $errorMsg = validatorHandle::getMessage($name, $attribute, self::defaultMsg($msg), $param);
 
         //进行验证
-        $result = is_int($input[$name]);
-        if (!$result) {
+        if (!in_array($input[$name], $param['value'])) {
             return $errorMsg;
         }
         return false;
@@ -36,7 +35,7 @@ class validatorInt implements validatorInterface {
      */
     private static function defaultMsg($msg) {
         if (empty($msg)) {
-            return '{attribute}必须为整数';
+            return '{attribute}最小长度为{max}';
         }
         return $msg;
     }

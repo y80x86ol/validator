@@ -4,7 +4,7 @@
  * 验证助手类
  */
 
-class validatorHandler {
+class validatorHandle {
 
     /**
      * 简单option参数处理

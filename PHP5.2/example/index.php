@@ -17,7 +17,7 @@ $_POST['test_name1'] = 'bbb';
 
 $input = $_POST;
 $rules = array(
-    'test_name' => 'int|required|maxlength;maxlength=3|callback;callback=single|compare;name=test_name1',
+    'test_name' => 'int|required|maxlength;max=3|callback;callback=single|compare;name=test_name1',
     'sex' => 'required',
 );
 $labels = array(

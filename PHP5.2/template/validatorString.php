@@ -6,7 +6,7 @@
 require_once dirname(dirname(__FILE__)) . '/validatorHandle.php';
 require_once dirname(__FILE__) . '/validatorInterface.php';
 
-class validatorInt implements validatorInterface {
+class validatorString implements validatorInterface {
 
     /**
      * 执行验证
@@ -22,7 +22,7 @@ class validatorInt implements validatorInterface {
         $errorMsg = validatorHandle::getMessage($name, $attribute, self::defaultMsg($msg), $param);
 
         //进行验证
-        $result = is_int($input[$name]);
+        $result = is_string($input[$name]);
         if (!$result) {
             return $errorMsg;
         }
@@ -36,7 +36,7 @@ class validatorInt implements validatorInterface {
      */
     private static function defaultMsg($msg) {
         if (empty($msg)) {
-            return '{attribute}必须为整数';
+            return '{attribute}必须为字符串';
         }
         return $msg;
     }
