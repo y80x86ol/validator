@@ -19,7 +19,7 @@ class validatorInt implements validatorInterface {
      */
     public static function run($input, $name, $attribute, $param, $msg) {
         //获取错误消息
-        $errorMsg = validatorHandler::getMessage($name, $attribute, $msg, $param);
+        $errorMsg = validatorHandler::getMessage($name, $attribute, self::defaultMsg($msg), $param);
 
         //进行验证
         $result = is_int($input[$name]);
@@ -27,6 +27,18 @@ class validatorInt implements validatorInterface {
             return $errorMsg;
         }
         return false;
+    }
+
+    /**
+     * 默认错误消息转换
+     * @param string $msg
+     * @return string
+     */
+    private static function defaultMsg($msg) {
+        if (empty($msg)) {
+            return '{attribute}必须为整数';
+        }
+        return $msg;
     }
 
 }

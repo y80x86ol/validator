@@ -25,7 +25,7 @@ $labels = array(
     'sex' => '性别'
 );
 $messages = array(
-    'test_name.int' => "用户名必须为整数",
+    //'test_name.int' => "用户名必须为整数",
     'test_name.maxlength' => '用户名长度最大为{maxlength}',
     'test_name.callback' => '我是测试回调',
 );

@@ -19,7 +19,7 @@ class validatorCallback implements validatorInterface {
      */
     public static function run($input, $name, $attribute, $param, $msg) {
         //获取错误消息
-        $errorMsg = validatorHandler::getMessage($name, $attribute, $msg, $param);
+        $errorMsg = validatorHandler::getMessage($name, $attribute, self::defaultMsg($msg), $param);
 
         //执行回调函数
         $callcackResult = call_user_func($param['callback'], $name, $input[$name]);
@@ -29,6 +29,18 @@ class validatorCallback implements validatorInterface {
             return $errorMsg;
         }
         return false;
+    }
+
+    /**
+     * 默认错误消息转换
+     * @param string $msg
+     * @return string
+     */
+    private static function defaultMsg($msg) {
+        if (empty($msg)) {
+            return '{attribute}返回错误';
+        }
+        return $msg;
     }
 
 }

@@ -37,19 +37,17 @@ class validatorHandler {
         //获取转化后的别名和错误消息
         list($newAttribute, $newMsg) = self::getOption($name, $option);
 
-        if ($newMsg) {
-            $errorMsg = str_replace('{attribute}', $newAttribute, $newMsg);
-            //正则匹配出需要替换的参数
-            $msgParams = self::getMsgParams($msg);
 
-            foreach ($msgParams as $item) {
-                if (isset($params[$item])) {
-                    $errorMsg = str_replace('{' . $item . '}', $params[$item], $errorMsg);
-                }
+        $errorMsg = str_replace('{attribute}', $newAttribute, $newMsg);
+        //正则匹配出需要替换的参数
+        $msgParams = self::getMsgParams($msg);
+
+        foreach ($msgParams as $item) {
+            if (isset($params[$item])) {
+                $errorMsg = str_replace('{' . $item . '}', $params[$item], $errorMsg);
             }
-        } else {
-            $errorMsg = $newAttribute . '返回错误';
         }
+
 
         return $errorMsg;
     }
