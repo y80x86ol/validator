@@ -4,7 +4,7 @@
  * ToDo:验证所传参数进行验证
  */
 header("Content-type: text/html; charset=utf-8");
-require dirname(__FILE__) . '/validator.php';
+require dirname(dirname(__FILE__)) . '/validator.php';
 
 
 $_POST['test_name'] = 2;
