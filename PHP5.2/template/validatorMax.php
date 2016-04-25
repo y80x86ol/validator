@@ -25,7 +25,7 @@ class validatorMax implements validatorInterface {
             die('max规则必须传递参数max');
         }
         //进行验证
-        if (strlen($input[$name]) > $param['max']) {
+        if ($input[$name] > $param['max']) {
             return $errorMsg;
         }
         return false;
@@ -38,7 +38,7 @@ class validatorMax implements validatorInterface {
      */
     private static function defaultMsg($msg) {
         if (empty($msg)) {
-            return '{attribute}最大长度为{max}';
+            return '{attribute}最大值为{max}';
         }
         return $msg;
     }

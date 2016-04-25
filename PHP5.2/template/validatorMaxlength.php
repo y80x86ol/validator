@@ -6,7 +6,7 @@
 require_once dirname(dirname(__FILE__)) . '/validatorHandle.php';
 require_once dirname(__FILE__) . '/validatorInterface.php';
 
-class validatorMin implements validatorInterface {
+class validatorMaxlength implements validatorInterface {
 
     /**
      * 执行验证
@@ -21,11 +21,11 @@ class validatorMin implements validatorInterface {
         //获取错误消息
         $errorMsg = validatorHandle::getMessage($name, $attribute, self::defaultMsg($msg), $param);
 
-        if (!isset($param['min'])) {
-            die('min规则必须传递参数min');
+        if (!isset($param['maxlength'])) {
+            die('maxlength规则必须传递参数maxlength');
         }
         //进行验证
-        if ($input[$name] < $param['min']) {
+        if (strlen($input[$name]) > $param['maxlength']) {
             return $errorMsg;
         }
         return false;
@@ -38,7 +38,7 @@ class validatorMin implements validatorInterface {
      */
     private static function defaultMsg($msg) {
         if (empty($msg)) {
-            return '{attribute}最小值为{min}';
+            return '{attribute}最大长度为{maxlength}';
         }
         return $msg;
     }

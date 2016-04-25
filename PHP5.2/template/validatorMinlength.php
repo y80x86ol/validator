@@ -21,11 +21,11 @@ class validatorMin implements validatorInterface {
         //获取错误消息
         $errorMsg = validatorHandle::getMessage($name, $attribute, self::defaultMsg($msg), $param);
 
-        if (!isset($param['min'])) {
-            die('min规则必须传递参数min');
+        if (!isset($param['minlength'])) {
+            die('minlength规则必须传递参数minlength');
         }
         //进行验证
-        if ($input[$name] < $param['min']) {
+        if (!in_array($input[$name], $param['minlength'])) {
             return $errorMsg;
         }
         return false;
@@ -38,7 +38,7 @@ class validatorMin implements validatorInterface {
      */
     private static function defaultMsg($msg) {
         if (empty($msg)) {
-            return '{attribute}最小值为{min}';
+            return '{attribute}最小长度为{minlength}';
         }
         return $msg;
     }
