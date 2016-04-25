@@ -6,13 +6,17 @@
 header("Content-type: text/html; charset=utf-8");
 require dirname(dirname(__FILE__)) . '/validator.php';
 
+function single($name, $value) {
+    //进行一堆验证
+    return false;
+}
 
 $_POST['test_name'] = 2;
 
 
 $input = $_POST;
 $rules = array(
-    'test_name' => 'required|maxlength;maxlength=3|int',
+    'test_name' => 'required|maxlength;maxlength=3|int|callback;callback=single',
     'age' => 'maxlength;maxlength=2|required',
     'sex' => 'required'
 );
@@ -23,6 +27,7 @@ $labels = array(
 $messages = array(
     'test_name.required' => "必须填写用户名",
     'test_name.maxlength' => '用户名长度最大为:maxlength',
+    'test_name.callback' => '用户名必须唯一',
 );
 validator::make($input, $rules, $labels, $messages);
 

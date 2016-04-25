@@ -18,7 +18,7 @@ class validator {
      * @param type $rules
      * @param type $messages
      */
-    public static function make($input, $rules, $labels, $messages) {
+    public static function make($input, $rules, $labels = array(), $messages = array()) {
         //1、解析rules
         $newRules = self::resolveRules($rules);
 
