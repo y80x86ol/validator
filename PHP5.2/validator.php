@@ -50,11 +50,9 @@ class validator {
                     $param = $row;
                     $msgName = $name . '.' . $rule;
                     $msg = isset($messages[$msgName]) ? $messages[$msgName] : '';
-                    $input[$name] = isset($input[$name]) ? $input[$name] : '';
 
                     //执行验证
-                    $validator = new $classValidator($name, $input[$name], $attribute, $param, $msg);
-                    $result = $validator->run();
+                    $result = $classValidator::run($input, $name, $attribute, $param, $msg);
                     if ($result) {
                         self::$errors[$name][] = $result;
                     }

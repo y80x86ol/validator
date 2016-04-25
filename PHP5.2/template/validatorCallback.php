@@ -4,70 +4,31 @@
  * 回调函数验证类
  */
 require_once dirname(dirname(__FILE__)) . '/validatorHander.php';
+require_once dirname(__FILE__) . '/validatorInterface.php';
 
-class validatorCallback {
-
-    private $name;
-    private $value;
-    private $attribute;
-    private $param;
-    private $message;
-
-    /**
-     * 获取初始化数据
-     * @param string $name  参数名
-     * @param string $attribute 别名
-     * @param array $param  参数数组
-     * @param string $message   错误消息
-     */
-    public function __construct($name, $value, $attribute, $param, $message) {
-        $this->name = $name;
-        $this->value = $value;
-        $this->attribute = $attribute;
-        $this->param = $param;
-        $this->message = $message;
-    }
+class validatorCallback implements validatorInterface {
 
     /**
      * 执行验证
+     * @param array $input  所有验证
+     * @param string $name  验证名
+     * @param string $attribute 验证属性
+     * @param array $param  参数
+     * @param string $msg   错误消息
+     * @return type
      */
-    public function run() {
-        $option = array(
-            'attribute' => $this->attribute,
-            'msg' => $this->message,
-        );
-
-        $result = $this->validate($this->name, $this->value, $this->param['callback'], $option);
-        if ($result) {
-            return $result;
-        }
-        return;
-    }
-
-    /**
-     * 验证参数是否为整数
-     * 
-     * @param string $name  参数名
-     * @param array $option 参数
-     * @return string
-     */
-    public static function validate($name, $value, $callback, $option = array()) {
-        //获取转化后的别名和错误消息
-        list($attribute, $msg) = validatorHandler::getOption($name, $option);
+    public static function run($input, $name, $attribute, $param, $msg) {
+        //获取错误消息
+        $errorMsg = validatorHandler::getMessage($name, $attribute, $msg, $param);
 
         //执行回调函数
-        $callcackResult = call_user_func($callback, $name, $value);
+        $callcackResult = call_user_func($param['callback'], $name, $input[$name]);
 
-        //进行数据校验
-        $errorMsg = false;
+        //进行验证
         if (!$callcackResult) {
-            if ($msg) {
-                $errorMsg = str_replace(':attribute', $attribute, $msg);
-            } else {
-                $errorMsg = $attribute . '返回失败';
-            }
             return $errorMsg;
         }
+        return false;
     }
 
 }

@@ -11,23 +11,23 @@ function single($name, $value) {
     return false;
 }
 
-$_POST['test_name'] = 2;
+$_POST['test_name'] = '2123123';
+$_POST['test_name1'] = 'bbb';
 
 
 $input = $_POST;
 $rules = array(
-    'test_name' => 'required|maxlength;maxlength=3|int|callback;callback=single',
-    'age' => 'maxlength;maxlength=2|required',
-    'sex' => 'required'
+    'test_name' => 'int|required|maxlength;maxlength=3|callback;callback=single|compare;name=test_name1',
+    'sex' => 'required',
 );
 $labels = array(
     'test_name' => '用户名',
     'sex' => '性别'
 );
 $messages = array(
-    'test_name.required' => "必须填写用户名",
-    'test_name.maxlength' => '用户名长度最大为:maxlength',
-    'test_name.callback' => '用户名必须唯一',
+    'test_name.int' => "用户名必须为整数",
+    'test_name.maxlength' => '用户名长度最大为{maxlength}',
+    'test_name.callback' => '我是测试回调',
 );
 validator::make($input, $rules, $labels, $messages);
 

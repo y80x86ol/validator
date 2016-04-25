@@ -1,12 +1,12 @@
 <?php
 
 /*
- * 整形验证类
+ * 回调函数验证类
  */
 require_once dirname(dirname(__FILE__)) . '/validatorHander.php';
 require_once dirname(__FILE__) . '/validatorInterface.php';
 
-class validatorInt implements validatorInterface {
+class validatorCompare implements validatorInterface {
 
     /**
      * 执行验证
@@ -22,8 +22,7 @@ class validatorInt implements validatorInterface {
         $errorMsg = validatorHandler::getMessage($name, $attribute, $msg, $param);
 
         //进行验证
-        $result = is_int($input[$name]);
-        if (!$result) {
+        if ($input[$name] !== $input[$param['name']]) {
             return $errorMsg;
         }
         return false;

@@ -4,53 +4,28 @@
  * 请求验证类
  */
 require_once dirname(dirname(__FILE__)) . '/validatorHander.php';
+require_once dirname(__FILE__) . '/validatorInterface.php';
 
-class validatorRequired {
-
-    private $name;
-    private $value;
-    private $attribute;
-    private $param;
-    private $message;
-
-    public function __construct($name, $value, $attribute, $param, $message) {
-        $this->name = $name;
-        $this->value = $value;
-        $this->attribute = $attribute;
-        $this->param = $param;
-        $this->message = $message;
-    }
-
-    public function run() {
-        $option = array(
-            'attribute' => $this->attribute,
-            'msg' => $this->message,
-        );
-
-        $result = $this->validate($this->name, $this->value, $option);
-        if ($result) {
-            return $result;
-        }
-        return;
-    }
+class validatorRequired implements validatorInterface {
 
     /**
-     * 验证参数是否为必须
+     * 执行验证
+     * @param array $input  所有验证
+     * @param string $name  验证名
+     * @param string $attribute 验证属性
+     * @param array $param  参数
+     * @param string $msg   错误消息
+     * @return type
      */
-    public function validate($name, $value, $option = array()) {
-        //获取初始化数据
-        list($attribute, $msg) = validatorHandler::getOption($name, $option);
+    public static function run($input, $name, $attribute, $param, $msg) {
+        //获取错误消息
+        $errorMsg = validatorHandler::getMessage($name, $attribute, $msg, $param);
 
-        //进行数据校验
-        $errorMsg = false;
-        if (empty($value)) {
-            if ($msg) {
-                $errorMsg = str_replace(':attribute', $attribute, $msg);
-            } else {
-                $errorMsg = '必须填写' . $attribute;
-            }
+        //进行验证
+        if (!isset($input[$name])) {
+            return $errorMsg;
         }
-        return $errorMsg;
+        return false;
     }
 
 }
