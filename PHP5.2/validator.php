@@ -51,8 +51,9 @@ class validator {
                     $msgName = $name . '.' . $rule;
                     $msg = isset($messages[$msgName]) ? $messages[$msgName] : '';
 
-                    //执行验证
-                    $result = $classValidator::run($input, $name, $attribute, $param, $msg);
+                    //PHP5.3以上才支持$class::$function的写法，所以这里采用call_user_func
+                    //$result = $classValidator::run($input, $name, $attribute, $param, $msg);
+                    $result = call_user_func(array($classValidator, 'run'), $input, $name, $attribute, $param, $msg);
                     if ($result) {
                         self::$errors[$name][] = $result;
                     }
