@@ -10,7 +10,7 @@ $input = $_POST;
 
 //规则条件
 $rules = array(
-    'test_name' => 'required|maxlength;maxlength=3|int',
+    'test_name' => 'required|maxlength;max=3|int',
     'age' => 'maxlength;maxlength=2|required',
     'sex' => 'required'
 );
