@@ -42,7 +42,8 @@ class validatorRequired {
         list($attribute, $msg) = validatorHandler::getOption($name, $option);
 
         //进行数据校验
-        if (!isset($value)) {
+        $errorMsg = false;
+        if (empty($value)) {
             if ($msg) {
                 $errorMsg = str_replace(':attribute', $attribute, $msg);
             } else {

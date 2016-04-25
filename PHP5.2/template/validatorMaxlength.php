@@ -56,6 +56,7 @@ class validatorMaxlength {
         //获取初始化数据
         list($attribute, $msg) = validatorHandler::getOption($name, $option);
         //进行数据校验
+        $errorMsg = false;
         if (strlen($value) > $maxlength) {
             if ($msg) {
                 //进行字符串替换

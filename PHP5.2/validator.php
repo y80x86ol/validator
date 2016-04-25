@@ -26,6 +26,8 @@ class validator {
         foreach ($newRules as $key => $value) {
             if (isset($labels[$value['name']])) {
                 $newRules[$key]['attribute'] = $labels[$value['name']];
+            } else {
+                $newRules[$key]['attribute'] = '';
             }
         }
 
@@ -48,6 +50,7 @@ class validator {
                     $param = $row;
                     $msgName = $name . '.' . $rule;
                     $msg = isset($messages[$msgName]) ? $messages[$msgName] : '';
+                    $input[$name] = isset($input[$name]) ? $input[$name] : '';
 
                     //执行验证
                     $validator = new $classValidator($name, $input[$name], $attribute, $param, $msg);

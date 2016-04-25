@@ -56,7 +56,7 @@ class validatorInt {
         list($attribute, $msg) = validatorHandler::getOption($name, $option);
 
         //进行数据校验
-        //$result = filter_input(INPUT_POST, $name, FILTER_VALIDATE_INT);
+        $errorMsg = false;
         $result = is_int($value);
         if (!$result) {
             if ($msg) {
